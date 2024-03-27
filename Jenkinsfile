@@ -33,5 +33,34 @@ pipeline {
                 }
             }
     }
-}
+
+        stage('Remove containers') {
+            steps {
+                sh 'docker rm -f backend'
+                sh 'docker rm -f frontend'
+            }
+        }
+
+        stage('Deploy application') {
+            steps {
+                script {
+                    withEnv(["FRONTEND_IMAGE=$frontendImage:$frontendDockerTag", 
+                             "BACKEND_IMAGE=$backendImage:$backendDockerTag"]) {
+                       docker.withRegistry("$dockerRegistry", "$registryCredentials") {
+                            sh "docker-compose up -d"
+                }
+                             }
+                }
+            }
+        }
+    
+    }
+
+    post {
+        always {
+            sh 'docker-compose down'
+            cleanWs()
+        }
+    }
+
 }
