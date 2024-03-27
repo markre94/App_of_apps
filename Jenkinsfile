@@ -11,8 +11,8 @@ pipeline {
     }
 
     parameters {
-        string name: 'backendDockerTag'
-        string name: 'frontendDockerTag'
+        string 'backendDockerTag'
+        string 'frontendDockerTag'
     }
 
 
