@@ -15,6 +15,10 @@ pipeline {
         string 'frontendDockerTag'
     }
 
+    environments {
+        PIP_BREAK_SYSTEM_PACAKGES=1
+    }
+
 
     stages {
         stage('Get code') {
@@ -52,6 +56,14 @@ pipeline {
                              }
                 }
             }
+        }
+
+        stage('Selenium tests') {
+            steps {
+                sh 'pip3 install -r ./test/selenium/requirements.txt'
+                sh 'python3 -m pytest ./test/selenium/frontendTest.py'
+            }
+
         }
     
     }
