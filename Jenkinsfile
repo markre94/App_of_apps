@@ -15,7 +15,7 @@ pipeline {
         string 'frontendDockerTag'
     }
 
-    environments {
+    environment {
         PIP_BREAK_SYSTEM_PACAKGES=1
     }
 
