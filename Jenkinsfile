@@ -10,15 +10,15 @@ pipeline {
         label 'agent'
     }
 
+    environment {
+        PIP_BREAK_SYSTEM_PACKAGES = 1
+    }
+
+
     parameters {
         string 'backendDockerTag'
         string 'frontendDockerTag'
     }
-
-    environment {
-        PIP_BREAK_SYSTEM_PACAKGES=1
-    }
-
 
     stages {
         stage('Get code') {
